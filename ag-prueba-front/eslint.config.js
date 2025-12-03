@@ -1,8 +1,8 @@
-import angular from "@angular-eslint/eslint-plugin";
-import ts from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
+const angular = require("@angular-eslint/eslint-plugin");
+const ts = require("@typescript-eslint/eslint-plugin");
+const tsParser = require("@typescript-eslint/parser");
 
-export default [
+module.exports = [
   {
     files: ["**/*.ts"],
     ignores: ["**/node_modules/**"],
@@ -10,7 +10,7 @@ export default [
       parser: tsParser,
       parserOptions: {
         project: ["tsconfig.json"],
-        tsconfigRootDir: import.meta.dirname,
+        tsconfigRootDir: __dirname,
       },
     },
     plugins: {
