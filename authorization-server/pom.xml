@@ -86,7 +86,8 @@
 				</executions>
 				<configuration>
 					<failsOnError>false</failsOnError>
-					<configLocation>https://raw.githubusercontent.com/checkstyle/checkstyle/master/src/main/resources/google_checks.xml</configLocation>
+					<configLocation>checkstyle.xml</configLocation>
+					<includeTestSourceDirectory>true</includeTestSourceDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
