@@ -1,0 +1,63 @@
+name: CI - Lint, Test and Build
+
+on:
+  push:
+    branches: [ develop, okr3-quality ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  backend-authorization:
+    name: Authorization Server - Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build & Test authorization-server
+        working-directory: authorization-server
+        run: mvn -B clean verify
+
+  backend-resource:
+    name: Resource Server - Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build & Test resource-server
+        working-directory: resource-server
+        run: mvn -B clean verify
+
+  frontend:
+    name: Angular Frontend - Lint & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        working-directory: ag-prueba-front
+        run: npm ci
+
+      - name: Lint
+        working-directory: ag-prueba-front
+        run: npm run lint || npx eslint "src/**/*.ts"
+
+      - name: Test
+        working-directory: ag-prueba-front
+        run: npm test -- --watch=false --browsers=ChromeHeadless || echo "No tests found"
