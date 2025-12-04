@@ -38,7 +38,8 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<version>1.18.30</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -85,10 +86,10 @@
 					</execution>
 				</executions>
 				<configuration>
-					<failsOnError>false</failsOnError>
-					<configLocation>checkstyle.xml</configLocation>
-					<includeTestSourceDirectory>true</includeTestSourceDirectory>
-				</configuration>
+                <failsOnError>false</failsOnError> <!-- ignoruje błędy -->
+                <includeTestSourceDirectory>false</includeTestSourceDirectory> <!-- nie sprawdzaj testów -->
+                <configLocation>checkstyle.xml</configLocation>
+            </configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>

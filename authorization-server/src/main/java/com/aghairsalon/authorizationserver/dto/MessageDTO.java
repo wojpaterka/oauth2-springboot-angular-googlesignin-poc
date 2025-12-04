@@ -1,3 +1,17 @@
 package com.aghairsalon.authorizationserver.dto;
 
-public record MessageDTO(String message) { }
+public class MessageDTO {
+    private String message;
+
+    public MessageDTO(String message) {
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+}

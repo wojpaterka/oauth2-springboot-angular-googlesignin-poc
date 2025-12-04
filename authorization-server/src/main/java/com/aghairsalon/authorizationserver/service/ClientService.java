@@ -18,9 +18,10 @@ public class ClientService implements RegisteredClientRepository {
 
     private final ClientRepository clientRepository;
     private final PasswordEncoder passwordEncoder;
+
     @Override
     public void save(RegisteredClient registeredClient) {
-
+        // Implementacja wymagana przez interfejs, można zostawić puste jeśli nie używamy
     }
 
     public MessageDTO create(CreateClientDTO dto) {
@@ -43,9 +44,8 @@ public class ClientService implements RegisteredClientRepository {
         return Client.toRegisteredClient(client);
     }
 
-
     private Client clientFromDto(CreateClientDTO dto) {
-        Client client = Client.builder()
+        return Client.builder()
                 .clientId(dto.getClientId())
                 .clientSecret(passwordEncoder.encode(dto.getClientSecret()))
                 .authenticationMethods(dto.getAuthenticationMethods())
@@ -54,7 +54,5 @@ public class ClientService implements RegisteredClientRepository {
                 .scopes(dto.getScopes())
                 .requireProofKey(dto.isRequireProofKey())
                 .build();
-        return client;
     }
-
 }

@@ -26,18 +26,19 @@ public class AppUserService {
 
     public MessageDTO createUser(CreateAppUserDTO dto) {
         AppUser appUser = AppUser.builder()
-                .username(dto.username())
-                .password(passwordEncoder.encode(dto.password()))
+                .username(dto.getUsername())
+                .password(passwordEncoder.encode(dto.getPassword()))
                 .build();
+
         Set<Role> roles = new HashSet<>();
-        dto.roles().forEach(r -> {
+        dto.getRoles().forEach(r -> {
             Role role = roleRepository.findByRole(RoleName.valueOf(r))
-                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                    .orElseThrow(() -> new RuntimeException("Role not found: " + r));
             roles.add(role);
         });
+
         appUser.setRoles(roles);
         appUserRepository.save(appUser);
         return new MessageDTO("Usuario " + appUser.getUsername() + " guardado");
     }
-
 }
